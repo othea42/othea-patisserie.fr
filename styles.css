@@ -1,0 +1,198 @@
+/* Styles généraux pour la boutique en ligne */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
+header {
+    color: white;
+    padding: 80px 15px;
+    text-align: center;
+    background-image: url('PHOTOS SITE /macaroncara.jpeg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+header h1 {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+nav {
+    display: flex;
+    justify-content: center;
+    background: #733D29;
+}
+nav a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+nav a:hover {
+    background: #D98F4E;
+    color: #111;
+}
+nav a.active {
+    background: #D98F4E;
+    color: #111;
+}
+.container {
+    display: none;
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+}
+.container.active {
+    display: block;
+}
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+.product {
+    background: #fafafa;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+/* Overlay on hover: composition text */
+.product { position: relative; }
+.product .img-wrapper { position: relative; display: block; width:100%; }
+.product .img-wrapper img { display:block; width:100%; height:220px; object-fit:cover; border-radius:6px; }
+.product .overlay {
+    position: absolute;
+    inset: 0; /* fill wrapper */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px;
+    background: rgba(0,0,0,0.62);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 180ms ease, transform 180ms ease;
+    border-radius: 6px;
+    z-index: 3;
+    pointer-events: none;
+    transform: translateY(6px);
+}
+.product .img-wrapper:hover .overlay,
+.product .img-wrapper:focus-within .overlay {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.product .overlay .desc {
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+.product img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.product h3 {
+    margin: 10px 0 5px 0;
+    flex-grow: 0;
+}
+.product p {
+    margin: 5px 0 10px 0;
+    flex-grow: 0;
+}
+.product button {
+    margin-top: auto;
+    padding: 10px 15px;
+    background: #D98F4E;
+    color: #111;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+.product button:hover {
+    background: #B87942;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.16);
+}
+.product button:focus-visible {
+    outline: 3px solid rgba(217,143,78,0.24);
+    outline-offset: 2px;
+}
+.accueil-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: center;
+}
+.accueil-hero {
+    width: 100%;
+    height: 360px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    background-image: url('/Users/oceaneblanc/Documents/PHOTOS SITE /tablettecaramel.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+.accueil-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0,0,0,0.35);
+    z-index: 1;
+    border-radius: 8px;
+}
+@media (max-width: 768px) {
+    .accueil-hero {
+        height: 220px;
+    }
+}
+.accueil-text h2 {
+    color: #333;
+    font-size: 2em;
+    margin-top: 0;
+}
+.accueil-text p {
+    color: #666;
+    line-height: 1.8;
+    font-size: 1.1em;
+}
+.accueil-text strong {
+    color: #d4a574;
+}
+@media (max-width: 768px) {
+    .accueil-content {
+        grid-template-columns: 1fr;
+    }
+}
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #733D29;
+    color: white;
+    margin-top: 40px;
+}
