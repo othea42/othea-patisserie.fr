@@ -16,7 +16,7 @@
             color: white;
             padding: 80px 15px;
             text-align: center;
-            background-image: url('https://www.wonderbox.fr/blog/wp-content/uploads/sites/4/2023/08/macarons-couleurs.jpeg');
+            background-image: url('PHOTOS SITE /macaroncara.jpeg');
             background-size: cover;
             background-position: center;
             position: relative;
@@ -160,7 +160,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
             /* Remplacez par votre image locale : _MG_6644-Modifier copie 2.JPG */
-            background-image: url('https://www.frandroid.com/wp-content/uploads/2020/09/samsung-tuto-patisserie-1111.jpg');
+            background-image: url('/Users/oceaneblanc/Documents/PHOTOS SITE /tablettecaramel.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -215,12 +215,10 @@
 
 <nav>
     <a onclick="showPage('accueil')">Accueil</a>
-    <a onclick="showPage('choux')">Choux et Religieuses</a>
-    <a onclick="showPage('eclairs')">Éclairs et Friandises</a>
-    <a onclick="showPage('tartes')">Tartes et Mille-feuilles</a>
-    <a onclick="showPage('macarons')">Macarons et Gourmandises</a>
-    <a onclick="showPage('gateaux')">Gâteaux Entiers</a>
+    <a onclick="showPage('entremet')">Entremets</a>
+    <a onclick="showPage('tartes')">Tartes</a>
     <a onclick="showPage('tablettes')">Tablette de chocolat</a>
+    <a onclick="showPage('sans-gluten')">Sans gluten</a>
     <a onclick="showPage('panier')">Panier</a>
     <a onclick="showPage('contact')">Contact</a>
 </nav>
@@ -239,7 +237,7 @@
             </p>
             <p>
                 Que ce soit pour <strong>une occasion spéciale, un cadeau gourmand ou un simple plaisir</strong>, découvrez notre large gamme de produits : 
-                pâtisseries fines, entremets délicieux, gâteaux de voyage et bien d'autres délices.
+                pâtisseries fines, entremets délicieux, gâteaux de voyage et bien d'autres délices. Tous les desserts proposés sur notre site peuvent être adaptés en version sans gluten.
             </p>
             <p style="margin-top: 20px; font-style: italic;">
                 ✨ Profitez du <strong>click and collect</strong> sur Montbrison ✨
@@ -249,16 +247,60 @@
     </div>
 </div>
 
+<div class="container" id="entremet">
+    <h2>Entremets</h2>
+    <div class="products">
+        <div class="product" data-composition="Génoise, ganache noisette, praliné noisette">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /noisette.png" alt="Entremet noisette">
+            <h3>Entremet noisette</h3>
+            <p>14,50 €</p>
+            <button onclick="addToCart('Entremet noisette', 14.50)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Génoise, crémeux citron, glaçage miroir blanc">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /tocitron.jpg" alt="Trompe l'oeil citron">
+            <h3>Trompe l'oeil citron</h3>
+            <p>15,50 €</p>
+            <button onclick="addToCart('Trompe l\'oeil citron', 15.50)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Génoise légère, mousse pomme, glaçage miroir vert">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /topomme.jpg" alt="Trompe l'oeil pomme">
+            <h3>Trompe l'oeil pomme</h3>
+            <p>15,50 €</p>
+            <button onclick="addToCart('Trompe l\'oeil pomme', 15.50)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Biscuit feuilleté, crème légère, glaçage rose">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /Tobabet.jpg" alt="Trompe l'oeil babet">
+            <h3>Trompe l'oeil babet</h3>
+            <p>15,00 €</p>
+            <button onclick="addToCart('Trompe l\'oeil babet', 15.00)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Génoise, mousse chocolat, feuillantine croquante, ganache chocolat">
+            <img src="PHOTOS SITE%20/royal%20entier%20.jpeg" alt="Entremet royal feuillantine">
+            <h3>Entremet royal feuillantine</h3>
+            <p>16,00 €</p>
+            <button onclick="addToCart('Entremet royal feuillantine', 16.00)">Ajouter au panier</button>
+        </div>
+    </div>
+</div>
+
 <div class="container" id="choux">
     <h2>Choux et Religieuses</h2>
     <div class="products">
         <div class="product" data-composition="Pâte à choux, crème pralinée, praliné feuilleté">
             <img src="https://media.hachette.fr/fit-in/750x488/5/2022-04/paris-brest-ludo.jpg" alt="Paris-Brest">
             <h3>Paris-Brest</h3>
-            <p>6,90 €</p>
-            <div style="display:flex;gap:8px;justify-content:center;align-items:center;">
-                <button onclick="addToCart('Paris-Brest', 6.90)">Ajouter au panier</button>
-                <a href="https://buy.stripe.com/test_4gM00jc9PgSrfPV96a1oI00" target="_blank" rel="noopener" style="padding:8px 12px;background:#28a745;color:#fff;border-radius:6px;text-decoration:none;">Payer ce produit</a>
+            <p>À partir de 6,90 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="parisBrestSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="parisBrestSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="6.90">Individuel - 6,90 €</option>
+                    <option value="20.00">4 personnes - 20,00 €</option>
+                    <option value="35.00">6 personnes - 35,00 €</option>
+                </select>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;align-items:center;">
+                <button onclick="addParisBrestToCart()" style="padding:8px 12px;background:#D98F4E;color:#111;border:none;border-radius:6px;cursor:pointer;width:100%;">Ajouter au panier</button>
+                <a href="https://buy.stripe.com/test_4gM00jc9PgSrfPV96a1oI00" target="_blank" rel="noopener" style="padding:8px 12px;background:#28a745;color:#fff;border-radius:6px;text-decoration:none;width:100%;text-align:center;box-sizing:border-box;">Payer ce produit</a>
             </div>
         </div>
         <div class="product" data-composition="Pâte à choux, crème pâtissière chocolat, glaçage chocolat">
@@ -301,25 +343,73 @@
 </div>
 
 <div class="container" id="tartes">
-    <h2>Tartes et Mille-feuilles</h2>
+    <h2>Tartes</h2>
     <div class="products">
-        <div class="product" data-composition="Feuilletage inversé, crème pâtissière vanille, sucre glace">
-            <img src="https://patissland.fr/cdn/shop/articles/recette-du-mille-feuille-traditionnel-patissland_f39e97f4-e4a6-4463-aed7-00cf0007488e.png?v=1742153468" alt="Mille-feuille">
-            <h3>Mille-feuille classique</h3>
-            <p>5,90 €</p>
-            <button onclick="addToCart('Mille-feuille classique', 5.90)">Ajouter au panier</button>
-        </div>
-        <div class="product" data-composition="Pâte sablée, crème d'amande, fruits rouges frais">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgBmXGSrTwqSNM_Oo5_OTX83tMcW2ZcDYBwrlzRt71Db-Bk4EPIiNIYrdm8yiOcvF9KLjJ7GHMbaVBiC_VXy00N-cVogotQqJq0C4TyAoeEKtGTxHPDiks5eTf2OM-GS75uwbrHvUPiKNI/s1600/tarte-aux-fruits-rouges.jpg" alt="Tarte aux fruits">
-            <h3>Tarte aux fruits rouges</h3>
-            <p>7,50 €</p>
-            <button onclick="addToCart('Tarte aux fruits rouges', 7.50)">Ajouter au panier</button>
-        </div>
         <div class="product" data-composition="Pâte sablée, crémeux citron, meringue suisse dorée">
-            <img src="https://www.latelierderoxane.com/blog/wp-content/uploads/img_1969-2-scaled.jpg" alt="Tarte au citron">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /tartecitronentiere.jpeg" alt="Tarte au citron meringuée">
             <h3>Tarte au citron meringuée</h3>
-            <p>6,50 €</p>
-            <button onclick="addToCart('Tarte au citron meringuée', 6.50)">Ajouter au panier</button>
+            <p>7,50 €</p>
+            <button onclick="addToCart('Tarte au citron meringuée', 7.50)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée, crème d'amande, pommes fraîches cuites">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /Tartepommes.jpg " alt="Tarte aux pommes">
+            <h3>Tarte aux pommes</h3>
+            <p>7,50 €</p>
+            <button onclick="addToCart('Tarte aux pommes', 7.50)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée, caramel maison, ganache">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /tartelettechoco.jpg" alt="Tarte bourdaloue">
+            <h3>Tarte chocolat caramel</h3>
+            <p>8,00 €</p>
+            <button onclick="addToCart('Tarte chocolat caramel', 8.00)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée, crème mousseline pralinée, praliné feuilleté">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /Tarteparline.jpg " alt="Tarte à la praline">
+            <h3>Tarte à la praline</h3>
+            <p>8,00 €</p>
+            <button onclick="addToCart('Tarte à la praline', 8.00)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée, crème pâtissière, framboises fraîches, nappage fruit">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /Tartebourdaloue.jpg" alt="Tarte à la framboise">
+            <h3>Tarte bourdaloue</h3>
+            <p>8,50 €</p>
+            <button onclick="addToCart('Tarte bourdaloue', 8.50)">Ajouter au panier</button>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="sans-gluten">
+    <h2>Sans gluten</h2>
+    <div class="products">
+        <div class="product" data-composition="Sablé citron, pistache">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /sabléSG.jpg" alt="Sablés citron pistache">
+            <h3>Sablés citron pistache</h3>
+            <p>7,50 €</p>
+            <button onclick="addToCart('Sablés citron pistache', 7.50)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée sans gluten, caramel maison, ganache chocolat">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /tartelettechoco.jpg" alt="Tartelette chocolat caramel">
+            <h3>Tartelette chocolat caramel</h3>
+            <p>8,00 €</p>
+            <button onclick="addToCart('Tartelette chocolat caramel', 8.00)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée sans gluten, crème mousseline pralinée, praliné feuilleté">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /Tarteparlinespart.jpg" alt="Tarte à la praline sans gluten">
+            <h3>Tarte à la praline</h3>
+            <p>8,00 €</p>
+            <button onclick="addToCart('Tarte à la praline', 8.00)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée sans gluten, crème d'amande, pommes fraîches cuites">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /Tarteaux pommespart.jpg" alt="Tarte aux pommes sans gluten">
+            <h3>Tarte aux pommes</h3>
+            <p>7,50 €</p>
+            <button onclick="addToCart('Tarte aux pommes', 7.50)">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée sans gluten, crème pâtissière, framboises fraîches, nappage fruit">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /Tartebourdalouepart.jpg" alt="Tarte bourdaloue sans gluten">
+            <h3>Tarte bourdaloue</h3>
+            <p>8,50 €</p>
+            <button onclick="addToCart('Tarte bourdaloue', 8.50)">Ajouter au panier</button>
         </div>
     </div>
 </div>
@@ -377,31 +467,25 @@
     <h2>Tablette de chocolat</h2>
     <div class="products">
         <div class="product" data-composition="Chocolat au lait, praliné pistache croquant, sel de Guérande">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEju171uGPPG1IVMuHxnZYAxvsFtyOTBACupyFxbOZTaxDPuil485cGtd0KtLC9VClFEgJF1e3jJf9Fy2JDjZi0ANmPtnQqNAseNSGU8FRgDYxo6lL4rDXQ2ZxtwGs-FfQyFcpaC_m4r04YXtDHxjdX_B5ydqEI6pQuSoqW5hwS310Ykd2JghntkN92hWFg/w426-h640/Tablette%20de%20Duba%C3%AF-3.jpg" alt="Tablette Dubaï">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /tablettepistache.png" alt="Tablette Dubaï">
             <h3>Tablette Dubaï</h3>
             <p>6,50 €</p>
             <button onclick="addToCart('Tablette Dubaï', 6.50)">Ajouter au panier</button>
         </div>
-        <div class="product" data-composition="Chocolat au lait, praliné noisette, croustillant">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjCxrAj3PyIpu4DCKReX55j096lOn4keJQ4Pis2knrTwbMbbJpfBj7mzPiT9ckMwtkNKE5N7tMcFR1vup-4L0ynSRLCvjz5U-dbV-kD2yAKsEgtpH624gQbZlF7hbrmFSnr649A5Fh8TLGyLB6QuYAIQf3ZMHkccLt1tJ9WyXqtIAdIyAOCbK8UST_ausA/s16000-rw/recette-tablette-kinder-bueno.jpg" alt="Tablette Bueno">
-            <h3>Tablette Bueno</h3>
-            <p>5,50 €</p>
-            <button onclick="addToCart('Tablette Bueno', 5.50)">Ajouter au panier</button>
-        </div>
         <div class="product" data-composition="Chocolat noir, insert framboise, éclats de fruits séchés">
-            <img src="https://www.lepetit-bain.fr/wp-content/uploads/2025/06/Tablette-Franui-framboises-chocolat-la-recette-tendance.jpg" alt="Tablette Framboise">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /tabletteframboise.png" alt="Tablette Framboise">
             <h3>Tablette Framboise</h3>
             <p>5,50 €</p>
             <button onclick="addToCart('Tablette Framboise', 5.50)">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Chocolat lait gianduja, caramel beurre salé">
-            <img src="https://www.zaninchocolatier.fr/media/cache/product_picture/2021/08/3713-tablette-lait-gianduja-caramel-3.jpg" alt="Tablette Citron">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /tablettecaramel.jpeg" alt="Tablette Caramel">
             <h3>Tablette Caramel</h3>
             <p>5,50 €</p>
             <button onclick="addToCart('Tablette Caramel', 5.50)">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Chocolat praliné, éclats de noisette, croustillant">
-            <img src="https://cdn.shopify.com/s/files/1/0848/8144/1079/files/Tablette_fourree_cassee_DEBAUVE___GALLAIS2118.jpg?v=1708350202" alt="Tablette Surprise">
+            <img src="/Users/oceaneblanc/Documents/PHOTOS SITE /tablettepraline.png " alt="Tablette Surprise">
             <h3>Tablette Praliné</h3>
             <p>5,50 €</p>
             <button onclick="addToCart('Tablette praliné', 5.50)">Ajouter au panier</button>
@@ -422,12 +506,13 @@
 
 <div class="container" id="contact">
     <h2>Contact</h2>
-    <p>Email : contact@boutique.com</p>
-    <p>Téléphone : 01 23 45 67 89</p>
+    <p>Email : otheapatisserie@gmail.com</p>
+    <p>Instagram : @othea.patisserie</p>
+    <p>Téléphone : 09 55 74 87 33</p>
 </div>
 
 <footer>
-    © 2025 Boutique en Ligne - Tous droits réservés
+    © 2026 Boutique en Ligne - Tous droits réservés
 </footer>
 
 <script>
@@ -467,6 +552,14 @@ function addToCart(name, price) {
     cart.push({ name, price });
     renderCart();
     showPage('panier');
+}
+
+function addParisBrestToCart() {
+    const sizeSelect = document.getElementById('parisBrestSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Paris-Brest (' + selectedOption + ')';
+    addToCart(name, price);
 }
 
 function renderCart() {
