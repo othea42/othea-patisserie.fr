@@ -350,32 +350,72 @@ footer {
         <div class="product" data-composition="Pâte sablée, crémeux citron, meringue suisse dorée">
             <img src="tartecitronentiere.jpeg" alt="Tarte au citron meringuée">
             <h3>Tarte au citron meringuée</h3>
-            <p>7,50 €</p>
-            <button onclick="addToCart('Tarte au citron meringuée', 7.50)">Ajouter au panier</button>
+            <p>À partir de 7,50 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tarteCitronSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tarteCitronSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="7.50">Individuel - 7,50 €</option>
+                    <option value="22.50">4 personnes - 22,50 €</option>
+                    <option value="37.50">6 personnes - 37,50 €</option>
+                </select>
+            </div>
+            <button onclick="addTarteCitronToCart()">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Pâte sablée, crème d'amande, pommes fraîches cuites">
             <img src="tartepommes.jpg " alt="Tarte aux pommes">
             <h3>Tarte aux pommes</h3>
-            <p>7,50 €</p>
-            <button onclick="addToCart('Tarte aux pommes', 7.50)">Ajouter au panier</button>
+            <p>À partir de 7,50 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tartePommesSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tartePommesSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="7.50">Individuel - 7,50 €</option>
+                    <option value="22.50">4 personnes - 22,50 €</option>
+                    <option value="37.50">6 personnes - 37,50 €</option>
+                </select>
+            </div>
+            <button onclick="addTartePommesToCart()">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Pâte sablée, caramel maison, ganache">
             <img src="tartelettechoco.jpg" alt="Tarte bourdaloue">
             <h3>Tarte chocolat caramel</h3>
-            <p>8,00 €</p>
-            <button onclick="addToCart('Tarte chocolat caramel', 8.00)">Ajouter au panier</button>
+            <p>À partir de 8,00 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tarteChocoCaramelSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tarteChocoCaramelSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="8.00">Individuel - 8,00 €</option>
+                    <option value="24.00">4 personnes - 24,00 €</option>
+                    <option value="40.00">6 personnes - 40,00 €</option>
+                </select>
+            </div>
+            <button onclick="addTarteChocoCaramelToCart()">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Pâte sablée, crème mousseline pralinée, praliné feuilleté">
             <img src="tarteparline.jpg " alt="Tarte à la praline">
             <h3>Tarte à la praline</h3>
-            <p>8,00 €</p>
-            <button onclick="addToCart('Tarte à la praline', 8.00)">Ajouter au panier</button>
+            <p>À partir de 8,00 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tartePralineSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tartePralineSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="8.00">Individuel - 8,00 €</option>
+                    <option value="24.00">4 personnes - 24,00 €</option>
+                    <option value="40.00">6 personnes - 40,00 €</option>
+                </select>
+            </div>
+            <button onclick="addTartePralineToCart()">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Pâte sablée, crème pâtissière, framboises fraîches, nappage fruit">
             <img src="tartebourdaloue.jpg" alt="Tarte à la framboise">
             <h3>Tarte bourdaloue</h3>
-            <p>8,50 €</p>
-            <button onclick="addToCart('Tarte bourdaloue', 8.50)">Ajouter au panier</button>
+            <p>À partir de 8,50 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tarteBourdaloueSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tarteBourdaloueSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="8.50">Individuel - 8,50 €</option>
+                    <option value="25.50">4 personnes - 25,50 €</option>
+                    <option value="42.50">6 personnes - 42,50 €</option>
+                </select>
+            </div>
+            <button onclick="addTarteBourdaloueToCart()">Ajouter au panier</button>
         </div>
     </div>
 </div>
