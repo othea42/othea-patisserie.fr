@@ -603,7 +603,44 @@ function addParisBrestToCart() {
     const name = 'Paris-Brest (' + selectedOption + ')';
     addToCart(name, price);
 }
+    function addTarteCitronToCart() {
+    const sizeSelect = document.getElementById('tarteCitronSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Tarte au citron meringuée (' + selectedOption + ')';
+    addToCart(name, price);
+}
 
+function addTartePommesToCart() {
+    const sizeSelect = document.getElementById('tartePommesSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Tarte aux pommes (' + selectedOption + ')';
+    addToCart(name, price);
+}
+
+function addTarteChocoCaramelToCart() {
+    const sizeSelect = document.getElementById('tarteChocoCaramelSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Tarte chocolat caramel (' + selectedOption + ')';
+    addToCart(name, price);
+}
+    function addTartePralineToCart() {
+    const sizeSelect = document.getElementById('tartePralineSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Tarte à la praline (' + selectedOption + ')';
+    addToCart(name, price);
+}
+
+function addTarteBourdaloueToCart() {
+    const sizeSelect = document.getElementById('tarteBourdaloueSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Tarte bourdaloue (' + selectedOption + ')';
+    addToCart(name, price);
+}
 function renderCart() {
     const cartContainer = document.getElementById('cartItems');
     if (!cart.length) {
