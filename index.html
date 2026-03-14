@@ -282,9 +282,8 @@ footer {
             <p>16,00 €</p>
             <button onclick="addToCart('Entremet royal feuillantine', 16.00)">Ajouter au panier</button>
         </div>
-    <div>
+    </div>
 </div>
-  
 
 <div class="container" id="choux">
     <h2>Choux et Religieuses</h2>
@@ -303,7 +302,7 @@ footer {
             </div>
             <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;align-items:center;">
                 <button onclick="addParisBrestToCart()" style="padding:8px 12px;background:#D98F4E;color:#111;border:none;border-radius:6px;cursor:pointer;width:100%;">Ajouter au panier</button>
-                <a href="https://buy.stripe.com/test_4gM00jc9PgSrfPV96a1oI00" target="_blank" rel="noopener" style="padding:8px 12px;background:#28a745;color:#fff;border-radius:6px;text-decoration:none;width:100%;text-align:center;box-sizing:border-box;"</a>
+                <a href="https://buy.stripe.com/test_4gM00jc9PgSrfPV96a1oI00" target="_blank" rel="noopener" style="padding:8px 12px;background:#28a745;color:#fff;border-radius:6px;text-decoration:none;width:100%;text-align:center;box-sizing:border-box;">Payer ce produit</a>
             </div>
         </div>
         <div class="product" data-composition="Pâte à choux, crème pâtissière chocolat, glaçage chocolat">
@@ -604,7 +603,8 @@ function addParisBrestToCart() {
     const name = 'Paris-Brest (' + selectedOption + ')';
     addToCart(name, price);
 }
-    function addTarteCitronToCart() {
+
+function addTarteCitronToCart() {
     const sizeSelect = document.getElementById('tarteCitronSize');
     const price = parseFloat(sizeSelect.value);
     const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
@@ -627,7 +627,8 @@ function addTarteChocoCaramelToCart() {
     const name = 'Tarte chocolat caramel (' + selectedOption + ')';
     addToCart(name, price);
 }
-    function addTartePralineToCart() {
+
+function addTartePralineToCart() {
     const sizeSelect = document.getElementById('tartePralineSize');
     const price = parseFloat(sizeSelect.value);
     const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
@@ -642,6 +643,7 @@ function addTarteBourdaloueToCart() {
     const name = 'Tarte bourdaloue (' + selectedOption + ')';
     addToCart(name, price);
 }
+
 function renderCart() {
     const cartContainer = document.getElementById('cartItems');
     if (!cart.length) {
