@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8" />
@@ -216,13 +216,13 @@ footer {
 </header>
 
 <nav>
-    <a onclick="showPage('accueil')">Accueil</a>
-    <a onclick="showPage('entremet')">Entremets</a>
-    <a onclick="showPage('tartes')">Tartes</a>
-    <a onclick="showPage('tablettes')">Tablette de chocolat</a>
-    <a onclick="showPage('sans-gluten')">Sans gluten</a>
-    <a onclick="showPage('panier')">Panier</a>
-    <a onclick="showPage('contact')">Contact</a>
+    <a onclick="showPage('accueil', this)">Accueil</a>
+    <a onclick="showPage('entremet', this)">Entremets</a>
+    <a onclick="showPage('tartes', this)">Tartes</a>
+    <a onclick="showPage('tablettes', this)">Tablette de chocolat</a>
+    <a onclick="showPage('sans-gluten', this)">Sans gluten</a>
+    <a onclick="showPage('panier', this)">Panier</a>
+    <a onclick="showPage('contact', this)">Contact</a>
 </nav>
 
 <div class="container active" id="accueil">
@@ -364,16 +364,19 @@ footer {
         <div class="product" data-composition="Pâte sablée, compotée de pommes , pommes fraîches cuites">
             <img src="tartepommes.jpg " alt="Tarte aux pommes">
             <h3>Tarte aux pommes</h3>
-            <p>À partir de 4,00 €</p>
+            <p>À partir de 14,00 €</p>
             <div style="margin:10px 0;text-align:left;">
                 <label for="tartePommesSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
                 <select id="tartePommesSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
-                    <option value="4,00">Individuel - 4,00 €</option>
-                    <option value="14,00">4 personnes - 14,00 €</option>
-                    <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="4personnes">4 personnes - 14,00 €</option>
+                    <option value="6personnes">6 personnes - 21,00 €</option>
+                    <option value="8personnes">8 personnes - 28,00 €</option>
                 </select>
             </div>
-            <button onclick="addTartePommesToCart()">Ajouter au panier</button>
+            <div style="display:flex;gap:8px;">
+                <button onclick="addTartePommesToCart()" style="flex:1;padding:10px 12px;background:#D98F4E;color:#111;border:none;border-radius:6px;cursor:pointer;">Ajouter au panier</button>
+                <button onclick="payTartePommes()" style="flex:1;padding:10px 12px;background:#28a745;color:#fff;border:none;border-radius:6px;cursor:pointer;">Payer maintenant</button>
+            </div>
         </div>
         <div class="product" data-composition="Pâte sablée, caramel maison, ganache">
             <img src="tartelettechoco.jpg" alt="Tarte bourdaloue">
@@ -402,6 +405,8 @@ footer {
                 </select>
             </div>
             <button onclick="addTartePralineToCart()">Ajouter au panier</button>
+                        <a href="https://buy.stripe.com/6oUaEW9uZeR07T8ewjbII00" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;padding:10px 14px;background:#28a745;color:#fff;border-radius:6px;text-decoration:none;">Payer la tarte bourdaloue 4 personnes</a>
+
         </div>
         <div class="product" data-composition="Pâte sablée, crème d'amande, poire fraîches, nappage">
             <img src="tartebourdaloue.jpg" alt="Tarte à la framboise">
@@ -544,7 +549,6 @@ footer {
     </div>
     <div id="checkoutArea" style="margin-top:16px;">
         <button id="checkoutButton" onclick="createCheckoutSession()" style="padding:10px 14px;background:#2d6cdf;color:#fff;border:none;border-radius:6px;cursor:pointer;">Payer maintenant</button>
-        <a id="directLink" href="https://buy.stripe.com/test_fZuaEW4YR8HWfPt7VT7g400" target="_blank" rel="noopener" style="margin-left:8px;padding:10px 14px;background:#28a745;color:#fff;border:none;border-radius:6px;text-decoration:none;display:inline-block;">Payer (lien direct)</a>
     </div>
 </div>
 
@@ -561,7 +565,7 @@ footer {
 
 <script>
 // Fonction pour afficher/masquer les pages
-function showPage(pageId) {
+function showPage(pageId, clickedElement) {
     // Masquer tous les conteneurs
     const containers = document.querySelectorAll('.container');
     containers.forEach(container => {
@@ -579,7 +583,11 @@ function showPage(pageId) {
     navLinks.forEach(link => {
         link.classList.remove('active');
     });
-    event.target.classList.add('active');
+    
+    // Ajouter la classe active à l'élément cliqué
+    if (clickedElement) {
+        clickedElement.classList.add('active');
+    }
 }
 
 // Panier dynamique
@@ -588,14 +596,24 @@ let cart = [];
 // Mapping des produits vers des Payment Links Stripe (si vous avez créé un Payment Link par produit)
 const productPaymentLinks = {
     'Paris-Brest': 'https://buy.stripe.com/test_6oUbJ0ezr7DSbzd0tr7g401',
-    'Macarons assortis (6 pièces)': 'https://buy.stripe.com/test_fZuaEW4YR8HWfPt7VT7g400'
+    'Macarons assortis (6 pièces)': 'https://buy.stripe.com/test_fZuaEW4YR8HWfPt7VT7g400',
+    'Tarte aux pommes': 'https://buy.stripe.com/eVq4gy22x8sC0qG4VJbII01',
     // Ajoutez d'autres mappings ici : 'Nom du produit': 'https://buy.stripe.com/...' 
+};
+
+// Mapping des tailles de tarte aux pommes vers les liens Stripe
+const tartePommesPaymentLinks = {
+    '4personnes': 'https://buy.stripe.com/eVq4gy22x8sC0qG4VJbII01',
+    '6personnes': 'https://buy.stripe.com/4gM4gy8qVfV4c9ogErbII02',
+    '8personnes': 'https://buy.stripe.com/5kQaEW7mR6ku3CS73RbII03'
 };
 
 function addToCart(name, price) {
     cart.push({ name, price });
     renderCart();
-    showPage('panier');
+    // Trouver et cliquer le lien panier dans la nav
+    const panierLink = Array.from(document.querySelectorAll('nav a')).find(a => a.textContent.includes('Panier'));
+    showPage('panier', panierLink);
 }
 
 function addParisBrestToCart() {
@@ -616,10 +634,47 @@ function addTarteCitronToCart() {
 
 function addTartePommesToCart() {
     const sizeSelect = document.getElementById('tartePommesSize');
-    const price = parseFloat(sizeSelect.value);
+    const selectedValue = sizeSelect.value;
     const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    
+    let price = 0;
+    if (selectedValue === '4personnes') {
+        price = 14;
+    } else if (selectedValue === '6personnes') {
+        price = 21;
+    } else if (selectedValue === '8personnes') {
+        price = 28;
+    }
+    
     const name = 'Tarte aux pommes (' + selectedOption + ')';
     addToCart(name, price);
+}
+
+function payTartePommes() {
+    const sizeSelect = document.getElementById('tartePommesSize');
+    if (!sizeSelect) {
+        alert('Erreur : menu déroulant non trouvé');
+        return;
+    }
+    
+    const selectedSize = sizeSelect.value;
+    console.log('Taille sélectionnée :', selectedSize);
+    console.log('Liens disponibles :', tartePommesPaymentLinks);
+    
+    // Mapping directement dans la fonction pour éviter les problèmes de scope
+    const paymentLinks = {
+        '4personnes': 'https://buy.stripe.com/eVq4gy22x8sC0qG4VJbII01',
+        '6personnes': 'https://buy.stripe.com/4gM4gy8qVfV4c9ogErbII02',
+        '8personnes': 'https://buy.stripe.com/5kQaEW7mR6ku3CS73RbII03'
+    };
+    
+    const paymentLink = paymentLinks[selectedSize];
+    
+    if (paymentLink) {
+        window.open(paymentLink, '_blank');
+    } else {
+        alert('Erreur : Impossible de trouver le lien de paiement pour la taille sélectionnée.');
+    }
 }
 
 function addTarteChocoCaramelToCart() {
@@ -665,6 +720,20 @@ function renderCart() {
     });
 
     html += `</ul><p><strong>Total : ${total.toFixed(2)} €</strong></p>`;
+
+    // Vérifier si le panier contient une tarte aux pommes et afficher les liens de paiement
+    const hasTartePommes = cart.some(item => item.name.includes('Tarte aux pommes'));
+    if (hasTartePommes) {
+        html += `<div style="margin-top:16px; padding:10px; background:#f9f9f9; border-radius:6px;">
+            <p><strong>Liens de paiement pour la tarte aux pommes :</strong></p>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <a href="https://buy.stripe.com/eVq4gy22x8sC0qG4VJbII01" target="_blank" rel="noopener" style="padding:10px 14px;background:#28a745;color:#fff;border-radius:6px;text-decoration:none;text-align:center;">Payer - 4 personnes (14,00 €)</a>
+                <a href="https://buy.stripe.com/4gM4gy8qVfV4c9ogErbII02" target="_blank" rel="noopener" style="padding:10px 14px;background:#28a745;color:#fff;border-radius:6px;text-decoration:none;text-align:center;">Payer - 6 personnes (21,00 €)</a>
+                <a href="https://buy.stripe.com/5kQaEW7mR6ku3CS73RbII03" target="_blank" rel="noopener" style="padding:10px 14px;background:#28a745;color:#fff;border-radius:6px;text-decoration:none;text-align:center;">Payer - 8 personnes (28,00 €)</a>
+            </div>
+        </div>`;
+    }
+
     cartContainer.innerHTML = html;
     document.getElementById('checkoutButton').disabled = false;
     const dl = document.getElementById('directLink');
@@ -679,37 +748,48 @@ function removeFromCart(index) {
 // Crée une session Stripe Checkout via l'endpoint serveur
 async function createCheckoutSession() {
     if (!cart.length) return alert('Votre panier est vide');
-    // Si le panier contient exactement 1 article et qu'un Payment Link existe pour ce produit,
-    // rediriger directement vers ce lien (flux sans serveur).
-    if (cart.length === 1) {
-        const prodName = cart[0].name;
-        const link = productPaymentLinks[prodName];
-        if (link) {
-            // ouvrir le lien Stripe (nouvel onglet) — garde l'utilisateur dans votre boutique
-            window.open(link, '_blank');
-            return;
-        }
-    }
-
-    // Sinon, tenter d'utiliser l'endpoint serveur pour créer une session Checkout (nécessite Node/server)
-    const items = cart.map(i => ({ name: i.name, unit_amount: Math.round(i.price * 100), quantity: 1 }));
+    
+    // Préparer les items pour le serveur
+    const items = cart.map(item => ({
+        name: item.name,
+        unit_amount: Math.round(item.price * 100), // Convertir en centimes
+        quantity: 1
+    }));
+    
+    // Afficher le chargement
+    const button = document.getElementById('checkoutButton');
+    const originalText = button.textContent;
+    button.textContent = 'Chargement...';
+    button.disabled = true;
+    
     try {
-        const res = await fetch('/create-checkout-session', {
+        // Appeler le serveur pour créer une session Stripe
+        const response = await fetch('https://othea-patisserie-fr.onrender.com/create-checkout-session', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({ items })
         });
-        if (!res.ok) throw new Error('Serveur indisponible');
-        const data = await res.json();
-        if (data.url) {
-            window.location = data.url; // redirection vers Stripe Checkout
-        } else {
-            console.error('Erreur session:', data);
-            alert('Impossible de démarrer le paiement via le serveur. Si vous n\'avez pas de serveur, utilisez un Payment Link pour chaque produit ou installez Node pour activer le checkout centralisé.');
+        
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Erreur serveur');
         }
-    } catch (err) {
-        console.error(err);
-        alert('Le serveur de paiement semble indisponible. Pour contourner :\n- Passez au paiement direct pour un seul article (bouton "Payer ce produit"),\n- Ou installez Node et démarrez le serveur d\'exemple pour permettre le paiement de plusieurs articles.');
+        
+        const session = await response.json();
+        
+        // Rediriger vers Stripe Checkout
+        if (session.url) {
+            window.location.href = session.url;
+        } else {
+            throw new Error('URL de paiement impossible à générer');
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+        alert(`Erreur de paiement : ${error.message}\n\nAssurez-vous que le serveur Render est actif sur https://othea-patisserie-fr.onrender.com`);
+        button.textContent = originalText;
+        button.disabled = false;
     }
 }
 
