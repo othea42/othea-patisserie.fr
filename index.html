@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8" />
@@ -149,6 +149,102 @@ nav a.active {
     outline: 3px solid rgba(217,143,78,0.24);
     outline-offset: 2px;
 }
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 10px 0;
+}
+.quantity-controls button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #D98F4E;
+    background: white;
+    color: #D98F4E;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.quantity-controls button:hover {
+    background: #D98F4E;
+    color: white;
+}
+.quantity-controls input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 14px;
+}
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.cart-item:last-child {
+    border-bottom: none;
+}
+.item-name {
+    flex: 1;
+    font-weight: bold;
+}
+.cart-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 15px;
+}
+.cart-quantity-controls button {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #D98F4E;
+    background: white;
+    color: #D98F4E;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart-quantity-controls button:hover {
+    background: #D98F4E;
+    color: white;
+}
+.cart-quantity-controls input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px;
+    font-size: 14px;
+}
+.item-price {
+    font-weight: bold;
+    color: #D98F4E;
+    margin-right: 10px;
+}
+.remove-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.remove-btn:hover {
+    background: #c82333;
+}
 .accueil-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -208,11 +304,15 @@ footer {
 }
     </style>
 
+<script 
+  src="https://www.paypal.com/sdk/js?client-id=ASIHnLqbga6wXokUcwCrwWbeiOb5argvR3HiQKn9saBieJQJSmF9eriB9sw5ibD5AICkzaQ992R5ritj&components=buttons,hosted-buttons&disable-funding=venmo&currency=EUR">
+</script>
+
 </head>
 <body>
 
 <header>
-    <h1>Boutique en Ligne Othéa  <br> <span style="color: white; -webkit-text-stroke: 1px red;">Liens de paiement en cours d’activation. Merci de passer commande uniquement par mail ou Instagram</span> </h1>
+    <h1>Boutique en Ligne Othéa  <br> Pâtisserie fine à Montbrison</h1>
 </header>
 
 <nav>
@@ -221,6 +321,7 @@ footer {
     <a onclick="showPage('tartes')">Tartes</a>
     <a onclick="showPage('tablettes')">Tablette de chocolat</a>
     <a onclick="showPage('sans-gluten')">Sans gluten</a>
+    <a onclick="showPage('vegan')">Vegan</a>
     <a onclick="showPage('panier')">Panier</a>
     <a onclick="showPage('contact')">Contact</a>
 </nav>
@@ -242,7 +343,7 @@ footer {
                 pâtisseries fines, entremets délicieux, gâteaux de voyage et bien d'autres délices. Tous les desserts proposés sur notre site peuvent être adaptés en version sans gluten.
             </p>
             <p style="margin-top: 20px; font-style: italic;">
-                ✨ Profitez du <strong>click and collect</strong> sur Montbrison ✨
+                ✨ Profitez du <strong>click and collect</strong> sur Montbrison ✨ Et retrouvez nous tout les samedis sur le marché de Montbrison pour découvrir nos nouveautés et nos classiques !
             </p>
         </div>
         <div class="accueil-hero" role="img" aria-label="Pâtisserie Othéa"></div>
@@ -256,31 +357,60 @@ footer {
             <img src="noisette.png" alt="Entremet noisette">
             <h3>Entremet noisette</h3>
             <p>14,50 €</p>
-            <button onclick="addToCart('Entremet noisette', 14.50)">Ajouter au panier</button>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('noisette', -1)">-</button>
+                <input type="number" id="qty-noisette" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('noisette', 1)">+</button>
+            </div>
+            <button onclick="addToCartWithQuantity('Entremet noisette', 14.50, 'noisette')">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Biscuit croustillant, crémeux citron,mousse citron, coque chocolat blanc citron">
             <img src="tocitron.jpg" alt="Trompe l'oeil citron">
             <h3>Trompe l'oeil citron</h3>
             <p>8 € </p>
-            <button onclick="addToCart('Trompe l\'oeil citron', 15.50)">Ajouter au panier</button>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('citron', -1)">-</button>
+                <input type="number" id="qty-citron" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('citron', 1)">+</button>
+            </div>
+            <button onclick="addToCartWithQuantity('Trompe l\'oeil citron', 8.00, 'citron')">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Biscuit croustillant, mousse légère pomme, compotée pomme canelle, glaçage miroir vert">
             <img src="topomme.jpg" alt="Trompe l'oeil pomme">
             <h3>Trompe l'oeil pomme</h3>
             <p>8 €</p>
-            <button onclick="addToCart('Trompe l\'oeil pomme', 15.50)">Ajouter au panier</button>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('pomme', -1)">-</button>
+                <input type="number" id="qty-pomme" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('pomme', 1)">+</button>
+            </div>
+            <button onclick="addToCartWithQuantity('Trompe l\'oeil pomme', 8.00, 'pomme')">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Biscuit croustillant , crème légère au miel, glaçage velour">
             <img src="tobabet.jpg" alt="Trompe l'oeil babet">
             <h3>Trompe l'oeil babet</h3>
             <p>8 €</p>
-            <button onclick="addToCart('Trompe l\'oeil babet', 15.00)">Ajouter au panier</button>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('babet', -1)">-</button>
+                <input type="number" id="qty-babet" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('babet', 1)">+</button>
+            </div>
+            <button onclick="addToCartWithQuantity('Trompe l\'oeil babet', 8.00, 'babet')">Ajouter au panier</button>
+
         </div>
         <div class="product" data-composition=" Biscuit joconde chocolat, feuillantine croquante, mousse chocolat">
             <img src="royalentier.jpeg" alt="Entremet royal feuillantine">
             <h3>Entremet royal feuillantine</h3>
-            <p>16,00 €</p>
-            <button onclick="addToCart('Entremet royal feuillantine', 16.00)">Ajouter au panier</button>
+            <p>À partir de 16,00 €</p>
+            <div class="parts-selection" style="margin:10px 0;text-align:left;">
+                <label for="royalParts" style="display:block;margin-bottom:6px;font-weight:bold;">Nombre de parts :</label>
+                <select id="royalParts" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="4" data-price="16.00">4 parts - 16,00 €</option>
+                    <option value="6" data-price="22.00">6 parts - 25,00 €</option>
+                    <option value="8" data-price="28.00">8 parts - 30,00 €</option>
+                </select>
+            </div>
+            <button onclick="addRoyalToCart()">Ajouter au panier</button>
         </div>
     </div>
 </div>
@@ -302,7 +432,6 @@ footer {
             </div>
             <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;align-items:center;">
                 <button onclick="addParisBrestToCart()" style="padding:8px 12px;background:#D98F4E;color:#111;border:none;border-radius:6px;cursor:pointer;width:100%;">Ajouter au panier</button>
-                <a href="https://buy.stripe.com/test_4gM00jc9PgSrfPV96a1oI00" target="_blank" rel="noopener" style="padding:8px 12px;background:#28a745;color:#fff;border-radius:6px;text-decoration:none;width:100%;text-align:center;box-sizing:border-box;">Payer ce produit</a>
             </div>
         </div>
         <div class="product" data-composition="Pâte à choux, crème pâtissière chocolat, glaçage chocolat">
@@ -350,13 +479,15 @@ footer {
         <div class="product" data-composition="Pâte sablée, lemon curd , meringue italienne dorée">
             <img src="tartecitronentiere.jpeg" alt="Tarte au citron meringuée">
             <h3>Tarte au citron meringuée</h3>
-            <p>À partir de 4,00 €</p>
+            <p>À partir de 3,50 €</p>
             <div style="margin:10px 0;text-align:left;">
                 <label for="tarteCitronSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
                 <select id="tarteCitronSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
-                    <option value="4.00">Individuel - 4,00 €</option>
+                    <option value="3.50">Individuel - 3,50 €</option>
                     <option value="14.00">4 personnes - 14,00 €</option>
                     <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
                 </select>
             </div>
             <button onclick="addTarteCitronToCart()">Ajouter au panier</button>
@@ -364,13 +495,15 @@ footer {
         <div class="product" data-composition="Pâte sablée, compotée de pommes , pommes fraîches cuites">
             <img src="tartepommes.jpg " alt="Tarte aux pommes">
             <h3>Tarte aux pommes</h3>
-            <p>À partir de 4,00 €</p>
+            <p>À partir de 3,50 €</p>
             <div style="margin:10px 0;text-align:left;">
                 <label for="tartePommesSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
                 <select id="tartePommesSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
-                    <option value="4,00">Individuel - 4,00 €</option>
-                    <option value="14,00">4 personnes - 14,00 €</option>
+                    <option value="3.50">Individuel - 3,50 €</option>
+                    <option value="14.00">4 personnes - 14,00 €</option>
                     <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
                 </select>
             </div>
             <button onclick="addTartePommesToCart()">Ajouter au panier</button>
@@ -378,13 +511,15 @@ footer {
         <div class="product" data-composition="Pâte sablée, caramel maison, ganache">
             <img src="tartelettechoco.jpg" alt="Tarte bourdaloue">
             <h3>Tarte chocolat caramel</h3>
-            <p>À partir de 4,00 €</p>
+            <p>À partir de 3,50 €</p>
             <div style="margin:10px 0;text-align:left;">
                 <label for="tarteChocoCaramelSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
                 <select id="tarteChocoCaramelSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
-                    <option value="4.00">Individuel - 4,00 €</option>
+                    <option value="3.50">Individuel - 3,50 €</option>
                     <option value="14.00">4 personnes - 14,00 €</option>
                     <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
                 </select>
             </div>
             <button onclick="addTarteChocoCaramelToCart()">Ajouter au panier</button>
@@ -392,13 +527,15 @@ footer {
         <div class="product" data-composition="Pâte sablée, crème à la praline, pralines concassées">
             <img src="tarteparline.jpg " alt="Tarte à la praline">
             <h3>Tarte à la praline</h3>
-            <p>À partir de 4,00 €</p>
+            <p>À partir de 3,50 €</p>
             <div style="margin:10px 0;text-align:left;">
                 <label for="tartePralineSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
                 <select id="tartePralineSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
-                    <option value="4.00">Individuel - 4,00 €</option>
+                    <option value="3.50">Individuel - 3,50 €</option>
                     <option value="14.00">4 personnes - 14,00 €</option>
                     <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
                 </select>
             </div>
             <button onclick="addTartePralineToCart()">Ajouter au panier</button>
@@ -406,17 +543,18 @@ footer {
         <div class="product" data-composition="Pâte sablée, crème d'amande, poire fraîches, nappage">
             <img src="tartebourdaloue.jpg" alt="Tarte à la framboise">
             <h3>Tarte bourdaloue</h3>
-            <p>À partir de 4,00 €</p>
+            <p>À partir de 3,50 €</p>
             <div style="margin:10px 0;text-align:left;">
                 <label for="tarteBourdaloueSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
                 <select id="tarteBourdaloueSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
-                    <option value="4.00">Individuel - 4,00 €</option>
+                    <option value="3.50">Individuel - 3,50 €</option>
                     <option value="14.00">4 personnes - 14,00 €</option>
                     <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
                 </select>
             </div>
             <button onclick="addTarteBourdaloueToCart()">Ajouter au panier</button>
-            <a href="https://buy.stripe.com/6oUaEW9uZeR07T8ewjbII00" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;padding:10px 14px;background:#28a745;color:#fff;border-radius:6px;text-decoration:none;">Payer la tarte bourdaloue 4 personnes</a>
                                                                                                                                                                                                                                                                                
         </div>
     </div>
@@ -429,31 +567,177 @@ footer {
             <img src="sablesg.jpg" alt="Sablés citron pistache">
             <h3>Sablés citron pistache</h3>
             <p>3,00 €</p>
-            <button onclick="addToCart('Sablés citron pistache', 7.50)">Ajouter au panier</button>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('sables-citron', -1)">-</button>
+                <input type="number" id="qty-sables-citron" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('sables-citron', 1)">+</button>
+            </div>
+            <button onclick="addToCartWithQuantity('Sablés citron pistache', 3.00, 'sables-citron')">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Pâte sablée sans gluten, caramel maison, ganache chocolat">
             <img src="tartelettechoco.jpg" alt="Tartelette chocolat caramel">
-            <h3>Tartelette chocolat caramel</h3>
-            <p>4,00 €</p>
-            <button onclick="addToCart('Tartelette chocolat caramel', 8.00)">Ajouter au panier</button>
+            <h3>Tarte chocolat caramel</h3>
+            <p>À partir de 3,50 €</p>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('tartechocoSG', -1)">-</button>
+                <input type="number" id="qty-tartechocoSG" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('tartechocoSG', 1)">+</button>
+            </div>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tartechocoSGSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tartechocoSGSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="3.50">Individuel - 3,50 €</option>
+                    <option value="14.00">4 personnes - 14,00 €</option>
+                    <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
+                </select>
+            </div>
+            <button onclick="addTarteChocoSGToCart()">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Pâte sablée sans gluten, crème à la praline, praliné feuilleté">
             <img src="tarteparlinespart.jpg" alt="Tarte à la praline sans gluten">
-            <h3>Tartelette à la praline</h3>
-            <p>4,00 €</p>
-            <button onclick="addToCart('Tarte à la praline', 8.00)">Ajouter au panier</button>
+            <h3>Tarte à la praline</h3>
+            <p>À partir de 3,50 €</p>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('tartepralineSG', -1)">-</button>
+                <input type="number" id="qty-tartepralineSG" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('tartepralineSG', 1)">+</button>
+            </div>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tartepralineSGSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tartepralineSGSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="3.50">Individuel - 3,50 €</option>
+                    <option value="14.00">4 personnes - 14,00 €</option>
+                    <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
+                </select>
+            </div>
+            <button onclick="addTartePralineSGToCart()">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Pâte sablée sans gluten, crème d'amande, pommes fraîches cuites">
             <img src="/tartepommespart.jpg" alt="Tarte aux pommes sans gluten">
-            <h3>Tartelette aux pommes</h3>
-            <p>4,00 €</p>
-            <button onclick="addToCart('Tarte aux pommes', 7.50)">Ajouter au panier</button>
+            <h3>Tarte aux pommes</h3>
+            <p>À partir de 3,50 €</p>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('tartepommeSG', -1)">-</button>
+                <input type="number" id="qty-tartepommeSG" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('tartepommeSG', 1)">+</button>
+            </div>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tartepommeSGSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tartepommeSGSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="3.50">Individuel - 3,50 €</option>
+                    <option value="14.00">4 personnes - 14,00 €</option>
+                    <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
+                </select>
+            </div>
+            <button onclick="addTartePommesSGToCart()">Ajouter au panier</button>
         </div>
-        <div class="product" data-composition="Pâte sablée sans gluten, crème pâtissière, framboises fraîches, nappage fruit">
-            <img src="tartebourdalouepart.jpg" alt="Tarte bourdaloue sans gluten">
-            <h3>Tartelette bourdaloue</h3>
-            <p>4,00 €</p>
-            <button onclick="addToCart('Tarte bourdaloue', 8.50)">Ajouter au panier</button>
+        <div class="product" data-composition="Pâte sablée sans gluten, lemon curd , meringue italienne dorée">
+            <img src="tartecitronentiere.jpeg" alt="Tarte au citron meringuée sans gluten">
+            <h3>Tarte au citron meringuée</h3>
+            <p>À partir de 3,50 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tarteCitronSGSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tarteCitronSGSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="3.50">Individuel - 3,50 €</option>
+                    <option value="14.00">4 personnes - 14,00 €</option>
+                    <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
+                </select>
+            </div>
+            <button onclick="addTarteCitronSGToCart()">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée sans gluten, crème d'amande, poire fraîches, nappage">
+            <img src="tartebourdaloue.jpg" alt="Tarte bourdaloue sans gluten">
+            <h3>Tarte bourdaloue</h3>
+            <p>À partir de 3,50 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tarteBourdaloueSGSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tarteBourdaloueSGSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="3.50">Individuel - 3,50 €</option>
+                    <option value="14.00">4 personnes - 14,00 €</option>
+                    <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
+                </select>
+            </div>
+            <button onclick="addTarteBourdaloueSGToCart()">Ajouter au panier</button>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="vegan">
+    <h2>Vegan</h2>
+    <div class="products">
+        <div class="product" data-composition="Pâte sablée vegan, compotée de pommes , pommes fraîches cuites">
+            <img src="tartepommes.jpg " alt="Tarte aux pommes vegan">
+            <h3>Tarte aux pommes</h3>
+            <p>À partir de 3,50 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tartePommesVeganSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tartePommesVeganSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="3.50">Individuel - 3,50 €</option>
+                    <option value="14.00">4 personnes - 14,00 €</option>
+                    <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
+                </select>
+            </div>
+            <button onclick="addTartePommesVeganToCart()">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée vegan, crème d'amande, poire fraîches, nappage">
+            <img src="tartebourdaloue.jpg" alt="Tarte bourdaloue vegan">
+            <h3>Tarte bourdaloue</h3>
+            <p>À partir de 3,50 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tarteBourdaloueVeganSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tarteBourdaloueVeganSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="3.50">Individuel - 3,50 €</option>
+                    <option value="14.00">4 personnes - 14,00 €</option>
+                    <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
+                </select>
+            </div>
+            <button onclick="addTarteBourdaloueVeganToCart()">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée vegan, lemon curd , meringue italienne dorée">
+            <img src="tartecitronentiere.jpeg" alt="Tarte au citron meringuée vegan">
+            <h3>Tarte au citron meringuée</h3>
+            <p>À partir de 3,50 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tarteCitronVeganSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tarteCitronVeganSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="3.50">Individuel - 3,50 €</option>
+                    <option value="14.00">4 personnes - 14,00 €</option>
+                    <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
+                </select>
+            </div>
+            <button onclick="addTarteCitronVeganToCart()">Ajouter au panier</button>
+        </div>
+        <div class="product" data-composition="Pâte sablée vegan, caramel maison, ganache">
+            <img src="tartelettechoco.jpg" alt="Tarte chocolat caramel vegan">
+            <h3>Tarte chocolat caramel</h3>
+            <p>À partir de 3,50 €</p>
+            <div style="margin:10px 0;text-align:left;">
+                <label for="tarteChocoCaramelVeganSize" style="display:block;margin-bottom:6px;font-weight:bold;">Choisir la taille :</label>
+                <select id="tarteChocoCaramelVeganSize" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+                    <option value="3.50">Individuel - 3,50 €</option>
+                    <option value="14.00">4 personnes - 14,00 €</option>
+                    <option value="21.00">6 personnes - 21,00 €</option>
+                    <option value="28.00">8 personnes - 28,00 €</option>
+                    <option value="35.00">10 personnes - 35,00 €</option>
+                </select>
+            </div>
+            <button onclick="addTarteChocoCaramelVeganToCart()">Ajouter au panier</button>
         </div>
     </div>
 </div>
@@ -514,25 +798,45 @@ footer {
             <img src="tablettepistache.png" alt="Tablette Dubaï">
             <h3>Tablette Pistache </h3>
             <p>6,00 €</p>
-            <button onclick="addToCart('Tablette Pistache', 6.50)">Ajouter au panier</button>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('tablette-pistache', -1)">-</button>
+                <input type="number" id="qty-tablette-pistache" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('tablette-pistache', 1)">+</button>
+            </div>
+            <button onclick="addToCartWithQuantity('Tablette Pistache', 6.00, 'tablette-pistache')">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Chocolat noir, ganache framboise">
             <img src="tabletteframboise.png" alt="Tablette Framboise">
             <h3>Tablette Framboise</h3>
             <p>6,00 €</p>
-            <button onclick="addToCart('Tablette Framboise', 5.50)">Ajouter au panier</button>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('tablette-framboise', -1)">-</button>
+                <input type="number" id="qty-tablette-framboise" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('tablette-framboise', 1)">+</button>
+            </div>
+            <button onclick="addToCartWithQuantity('Tablette Framboise', 6.00, 'tablette-framboise')">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Chocolat lait, caramel beurre salé maison">
             <img src="tablettecaramel.jpeg" alt="Tablette Caramel">
             <h3>Tablette Caramel</h3>
             <p>6,00 €</p>
-            <button onclick="addToCart('Tablette Caramel', 5.50)">Ajouter au panier</button>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('tablette-caramel', -1)">-</button>
+                <input type="number" id="qty-tablette-caramel" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('tablette-caramel', 1)">+</button>
+            </div>
+            <button onclick="addToCartWithQuantity('Tablette Caramel', 6.00, 'tablette-caramel')">Ajouter au panier</button>
         </div>
         <div class="product" data-composition="Chocolat noir,ganache praliné croustillante">
             <img src="tablettepraline.png " alt="Tablette Surprise">
             <h3>Tablette Praliné</h3>
             <p>6,00 €</p>
-            <button onclick="addToCart('Tablette praliné', 5.50)">Ajouter au panier</button>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('tablette-praline', -1)">-</button>
+                <input type="number" id="qty-tablette-praline" value="1" min="1" max="10" readonly>
+                <button onclick="changeQuantity('tablette-praline', 1)">+</button>
+            </div>
+            <button onclick="addToCartWithQuantity('Tablette praliné', 6.00, 'tablette-praline')">Ajouter au panier</button>
         </div>
     </div>
 </div>
@@ -543,8 +847,7 @@ footer {
         <p>Votre panier est actuellement vide.</p>
     </div>
     <div id="checkoutArea" style="margin-top:16px;">
-        <button id="checkoutButton" onclick="createCheckoutSession()" style="padding:10px 14px;background:#2d6cdf;color:#fff;border:none;border-radius:6px;cursor:pointer;">Payer maintenant</button>
-        <a id="directLink" href="https://buy.stripe.com/test_fZuaEW4YR8HWfPt7VT7g400" target="_blank" rel="noopener" style="margin-left:8px;padding:10px 14px;background:#28a745;color:#fff;border:none;border-radius:6px;text-decoration:none;display:inline-block;">Payer (lien direct)</a>
+        <div id="paypal-checkout-container"></div>
     </div>
 </div>
 
@@ -585,15 +888,44 @@ function showPage(pageId) {
 // Panier dynamique
 let cart = [];
 
-// Mapping des produits vers des Payment Links Stripe (si vous avez créé un Payment Link par produit)
-const productPaymentLinks = {
-    'Paris-Brest': 'https://buy.stripe.com/test_6oUbJ0ezr7DSbzd0tr7g401',
-    'Macarons assortis (6 pièces)': 'https://buy.stripe.com/test_fZuaEW4YR8HWfPt7VT7g400'
-    // Ajoutez d'autres mappings ici : 'Nom du produit': 'https://buy.stripe.com/...' 
-};
+// Fonction pour changer la quantité d'un produit
+function changeQuantity(productId, delta) {
+    const input = document.getElementById('qty-' + productId);
+    let currentValue = parseInt(input.value);
+    let newValue = currentValue + delta;
+    
+    if (newValue >= 1 && newValue <= 10) {
+        input.value = newValue;
+    }
+}
+
+// Fonction pour ajouter au panier avec quantité
+function addToCartWithQuantity(name, price, productId) {
+    const quantity = parseInt(document.getElementById('qty-' + productId).value);
+    
+    // Vérifier si l'article existe déjà dans le panier
+    const existingItem = cart.find(item => item.name === name);
+    
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        cart.push({ name, price, quantity });
+    }
+    
+    renderCart();
+    showPage('panier');
+}
 
 function addToCart(name, price) {
-    cart.push({ name, price });
+    // Vérifier si l'article existe déjà dans le panier
+    const existingItem = cart.find(item => item.name === name);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ name, price, quantity: 1 });
+    }
+    
     renderCart();
     showPage('panier');
 }
@@ -611,6 +943,22 @@ function addTarteCitronToCart() {
     const price = parseFloat(sizeSelect.value);
     const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
     const name = 'Tarte au citron meringuée (' + selectedOption + ')';
+    addToCart(name, price);
+}
+
+function addTarteCitronSGToCart() {
+    const sizeSelect = document.getElementById('tarteCitronSGSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Tarte au citron meringuée sans gluten (' + selectedOption + ')';
+    addToCart(name, price);
+}
+
+function addTarteBourdaloueSGToCart() {
+    const sizeSelect = document.getElementById('tarteBourdaloueSGSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Tarte bourdaloue sans gluten (' + selectedOption + ')';
     addToCart(name, price);
 }
 
@@ -646,13 +994,52 @@ function addTarteBourdaloueToCart() {
     addToCart(name, price);
 }
 
+function addTartePommesVeganToCart() {
+    const sizeSelect = document.getElementById('tartePommesVeganSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Tarte aux pommes vegan (' + selectedOption + ')';
+    addToCart(name, price);
+}
+
+function addTarteBourdaloueVeganToCart() {
+    const sizeSelect = document.getElementById('tarteBourdaloueVeganSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Tarte bourdaloue vegan (' + selectedOption + ')';
+    addToCart(name, price);
+}
+
+function addTarteCitronVeganToCart() {
+    const sizeSelect = document.getElementById('tarteCitronVeganSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Tarte au citron meringuée vegan (' + selectedOption + ')';
+    addToCart(name, price);
+}
+
+function addTarteChocoCaramelVeganToCart() {
+    const sizeSelect = document.getElementById('tarteChocoCaramelVeganSize');
+    const price = parseFloat(sizeSelect.value);
+    const selectedOption = sizeSelect.options[sizeSelect.selectedIndex].text;
+    const name = 'Tarte chocolat caramel vegan (' + selectedOption + ')';
+    addToCart(name, price);
+}
+
+function addRoyalToCart() {
+    const partsSelect = document.getElementById('royalParts');
+    const selectedOption = partsSelect.options[partsSelect.selectedIndex];
+    const parts = selectedOption.value;
+    const price = parseFloat(selectedOption.getAttribute('data-price'));
+    const name = 'Entremet royal feuillantine (' + parts + ' parts)';
+    addToCart(name, price);
+}
+
 function renderCart() {
     const cartContainer = document.getElementById('cartItems');
     if (!cart.length) {
         cartContainer.innerHTML = '<p>Votre panier est actuellement vide.</p>';
-        document.getElementById('checkoutButton').disabled = true;
-        const dl = document.getElementById('directLink');
-        if (dl) { dl.style.opacity = '0.5'; dl.style.pointerEvents = 'none'; dl.setAttribute('aria-disabled','true'); }
+        document.getElementById('paypal-checkout-container').innerHTML = '';
         return;
     }
 
@@ -660,57 +1047,111 @@ function renderCart() {
     let total = 0;
 
     cart.forEach((item, index) => {
-        total += item.price;
-        html += `<li>${item.name} - ${item.price.toFixed(2)} € <button onclick="removeFromCart(${index})">Retirer</button></li>`;
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        html += `<li>
+            <div class="cart-item">
+                <span class="item-name">${item.name}</span>
+                <div class="cart-quantity-controls">
+                    <button onclick="changeCartQuantity(${index}, -1)">-</button>
+                    <input type="number" value="${item.quantity}" min="1" max="10" onchange="updateCartQuantity(${index}, this.value)" readonly>
+                    <button onclick="changeCartQuantity(${index}, 1)">+</button>
+                </div>
+                <span class="item-price">${itemTotal.toFixed(2)} €</span>
+                <button onclick="removeFromCart(${index})" class="remove-btn">Retirer</button>
+            </div>
+        </li>`;
     });
 
     html += `</ul><p><strong>Total : ${total.toFixed(2)} €</strong></p>`;
     cartContainer.innerHTML = html;
-    document.getElementById('checkoutButton').disabled = false;
-    const dl = document.getElementById('directLink');
-    if (dl) { dl.style.opacity = '1'; dl.style.pointerEvents = 'auto'; dl.removeAttribute('aria-disabled'); }
+    
+    // Initialiser PayPal Checkout quand le panier change
+    setTimeout(() => {
+        initializePayPalCheckout();
+    }, 100);
 }
 
 function removeFromCart(index) {
     cart.splice(index, 1);
     renderCart();
 }
+// Fonction pour changer la quantité dans le panier
+function changeCartQuantity(index, delta) {
+    let newQuantity = cart[index].quantity + delta;
+    if (newQuantity >= 1 && newQuantity <= 10) {
+        cart[index].quantity = newQuantity;
+        renderCart();
+    }
+}
 
-// Crée une session Stripe Checkout via l'endpoint serveur
+// Fonction pour mettre à jour la quantité via input
+function updateCartQuantity(index, newQuantity) {
+    newQuantity = parseInt(newQuantity);
+    if (newQuantity >= 1 && newQuantity <= 10) {
+        cart[index].quantity = newQuantity;
+        renderCart();
+    }
+}
+// Crée une session de paiement PayPal Checkout
 async function createCheckoutSession() {
     if (!cart.length) return alert('Votre panier est vide');
-    // Si le panier contient exactement 1 article et qu'un Payment Link existe pour ce produit,
-    // rediriger directement vers ce lien (flux sans serveur).
-    if (cart.length === 1) {
-        const prodName = cart[0].name;
-        const link = productPaymentLinks[prodName];
-        if (link) {
-            // ouvrir le lien Stripe (nouvel onglet) — garde l'utilisateur dans votre boutique
-            window.open(link, '_blank');
-            return;
-        }
-    }
 
-    // Sinon, tenter d'utiliser l'endpoint serveur pour créer une session Checkout (nécessite Node/server)
-    const items = cart.map(i => ({ name: i.name, unit_amount: Math.round(i.price * 100), quantity: 1 }));
-    try {
-        const res = await fetch('/create-checkout-session', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ items })
-        });
-        if (!res.ok) throw new Error('Serveur indisponible');
-        const data = await res.json();
-        if (data.url) {
-            window.location = data.url; // redirection vers Stripe Checkout
-        } else {
-            console.error('Erreur session:', data);
-            alert('Impossible de démarrer le paiement via le serveur. Si vous n\'avez pas de serveur, utilisez un Payment Link pour chaque produit ou installez Node pour activer le checkout centralisé.');
+    // Créer une session avec les articles du panier
+    initializePayPalCheckout();
+}
+
+// Initialiser PayPal Checkout
+function initializePayPalCheckout() {
+    if (!window.paypal || !cart.length) return;
+
+    // Vider le conteneur
+    document.getElementById('paypal-checkout-container').innerHTML = '';
+
+    // Créer les articles pour PayPal
+    const items = cart.map(item => ({
+        name: item.name,
+        unit_amount: {
+            currency_code: 'EUR',
+            value: item.price.toFixed(2)
+        },
+        quantity: item.quantity.toString()
+    }));
+
+    // Calculer le total
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+
+    // Créer les boutons PayPal
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        currency_code: 'EUR',
+                        value: total,
+                        breakdown: {
+                            item_total: {
+                                currency_code: 'EUR',
+                                value: total
+                            }
+                        }
+                    },
+                    items: items
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Paiement réussi ! Commande ' + details.id);
+                cart = [];
+                renderCart();
+                showPage('accueil');
+            });
+        },
+        onError: function(err) {
+            alert('Erreur lors du paiement : ' + err);
         }
-    } catch (err) {
-        console.error(err);
-        alert('Le serveur de paiement semble indisponible. Pour contourner :\n- Passez au paiement direct pour un seul article (bouton "Payer ce produit"),\n- Ou installez Node et démarrez le serveur d\'exemple pour permettre le paiement de plusieurs articles.');
-    }
+    }).render('#paypal-checkout-container');
 }
 
 // --- Upload d'image locale : aperçu et insertion dans la page ---
@@ -805,6 +1246,25 @@ window.addEventListener('load', () => {
     // build overlays after DOM ready
     if (typeof setupProductOverlays === 'function') setupProductOverlays();
 });
+
+// PayPal Button for Trompe l'oeil citron
+paypal.Buttons({
+    createOrder: function(data, actions) {
+        return actions.order.create({
+            purchase_units: [{
+                amount: {
+                    value: '8.00'
+                },
+                description: 'Trompe l\'oeil citron'
+            }]
+        });
+    },
+    onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+            alert('Transaction completed by ' + details.payer.name.given_name);
+        });
+    }
+}).render('#paypal-button-container-citron');
 </script>
 </body>
 </html>
